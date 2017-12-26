@@ -6,8 +6,8 @@ def deeplearning(X, Y, lr = 0.005, iter = 1000):
     for i in range(iter):
         Z = np.dot(W.T, X) + b
         A = sigmoid(Z)
-        L = np.dot(Y, np.log(A).T) + np.dot((1 - Y), np.log(1 - A).T)
-        J = -1 * (L.sum()) / m
+        L = -1 * (np.dot(Y, np.log(A).T) + np.dot((1 - Y), np.log(1 - A).T))
+        J = L.sum() / m
         if i % 100 == 0:
             print ("J after iteration %i: %f" %(i, J))
             
