@@ -1,6 +1,6 @@
 def deeplearning(X, Y, lr = 0.005, iter = 1000):
     m = X.shape[1]
-    W = np.zeros((X.shape[0], 1))
+    w = np.zeros((X.shape[0], 1))
     b = 0
 
     for i in range(iter):
@@ -15,7 +15,7 @@ def deeplearning(X, Y, lr = 0.005, iter = 1000):
         dw = np.dot(X, dz.T) / m
         db = dz.sum() / m
 
-        W = W - np.dot(lr, dw)
+        w = w - np.dot(lr, dw)
         b = b - lr * db
 
 deeplearning(train_set_x, train_set_y)
