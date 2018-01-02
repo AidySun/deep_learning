@@ -21,6 +21,7 @@
   ```
   g(z) = a = 1 / (1 + e.power(-z))
   g'(z) = a * (1 - a)
+  # da = -(y/a) + (1-y)/(1-a)
   ```
 
 
@@ -31,5 +32,5 @@
   dW[l] = np.dot(dZ[l], A[l-1].T) / m
   db[l] = np.sum(dZ[l], axis = 1, keepdims = True) / m
 
-  # dZ[l] = dA[l] * g[l]`(Z[l]) = np.multiply(np.dot(W[l+1].T, dZ[l+1]), g[l]'(Z[l]))
+  # dZ[l] = dA[l] * g[l]'(Z[l]) = np.multiply(np.dot(W[l+1].T, dZ[l+1]), g[l]'(Z[l]))
   ```
