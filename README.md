@@ -10,6 +10,20 @@
     - dorp-out
     - ...
 
+## Basic recipe for ML
+  1. High bias (training set performance)
+    - larger network
+      - more layers
+      - more units
+    - training longer
+    - (NN architecture search)
+  2. High variance (dev set performance)
+    - more training data
+    - regularization
+      - L2
+      - Dropout
+    - (NN architecture search)
+
 ## Activation Functions and Derivatives
   * ReLU (Rectified Linear Unit)
     ```python
@@ -77,18 +91,26 @@
       # dW[l] = np.dot(dZ[l], A[l-1].T) / m
   
       dW_regularization[l] = dW[l]+ (lambda / m) * W[l]
-      # It's called 'weight decay' because this makes weights end up smaller
-  
+
+      # It's called 'weight decay' because this makes weights end up smaller. Why?
+      # Because when updating W with dW, (learning_rate * lambds / m) is smaller than 1. Therefore, updated W[l] is smaller than non-regularization.
+
+      W[l] = W[l] - learning_rate * dW_regularization[l]
+           = (1 - learning_rate * lambda / m) * W[l] - learning_rate * dW[l]
       ```
   2. Drop-out
     - With dropout, the neurons become less sensitive to the activation. This would prevent overfitting (high variance).
+    - Intution: cannot rely on any one feature, so have to spread out weights (shrink weights).
     - Dropout should be used ONLY in training, not testing.
     - Dropout applys to both forward and backward propagation. 
+    - Shown to be an adaptive form without regularization. But drop-out has a similar effect to L2-regularization.
 
       ```python
       D[l] = (np.random.rand(A[l].shape) < keep_prob)
-      A[l] = (A[l] * D[l]) / keep_prob  # by deviding keep_prob to keep the same expected value for activations(then cost is same) as without dropout
+
+      # by deviding keep_prob to keep the same expected value for activations(then cost is same) as without dropout (inverted drop-out)
+      A[l] = (A[l] * D[l]) / keep_prob  
       ...
-      dA[l] = (dA[l] * D[l]) / keep_prob
+      dA[l] = (dA[l] * D[l]) / keep_prob 
   
       ```
