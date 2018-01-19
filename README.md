@@ -63,7 +63,9 @@
 ## Parameters Initialization
   ```python
     # init W with zeros will cause all layers do the same thing, cost is not changed (faile to break symmetry)
-    # init W with big numbers can break semmetry, but it will slow down optimization algorithm (high loss for wrong predict)
+
+    # init W with big numbers can break semmetry, 
+    # but it will slow down optimization algorithm (high loss for wrong predict)
 
     # ReLU should use He Initialization
     W = np.random.randn(n, n-1) * np.sqrt(2 / (n-1)) 
