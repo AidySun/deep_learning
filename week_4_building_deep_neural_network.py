@@ -77,6 +77,19 @@ def linear_forward(A_prev, W, b, activation_func):
     assert(A.shape == Z.shape)
     return A, Z
 
+def model_forward_propagation(X, parameters, layer_functions):
+    L = len(layer_functions)
+
+    caches = {}
+    A_prev = X
+    for l in range(1, L):
+        A, Z = linear_forward(A_prev, parameters['W' + str(l)], parameters['b' + str(l)], layer_functions[l])
+        caches['A' + str(l)] = A
+        caches['Z' + str(l)] = Z
+        A_prev = A
+    return caches, A
+
+
 def cost(AL, Y):
     m = Y.shape[1]
     J = - (np.dot(Y, np.log(AL.T)) + np.dot((1 - Y), np.log(1 - AL.T))).sum() / m
@@ -103,6 +116,26 @@ def linear_backward(dA, A_prev, Z, W, activation_func):
 
     return dZ, dW, db, dA_prev
 
+def model_backward_propagation(AL, Y, parameters, caches, layer_gs):
+    dA = -1 * (Y / AL) + (1 - Y) / (1 - AL) # assume last layer is sigmoid 
+
+    L = len(layer_gs)
+
+    grads = {}
+    for l in range(L - 1, 0, -1):
+        dZ, dW, db, dA_prev = linear_backward(dA, caches['A' + str(l-1)], caches['Z' + str(l)], parameters['W' + str(l)], layer_gs[l])
+        grads['dW' + str(l)] = dW
+        grads['db' + str(l)] = db
+        grads['dZ' + str(l)] = dZ
+        dA = dA_prev
+    return grads
+  
+def update_parameters(parameters, grads, L):
+    for i in (1, L+1):
+        parameters['W' + str(l)] = parameters['W' + str(l)] - learning_rate * grads['dW' + str(l)]
+        parameters['b' + str(l)] = parameters['b' + str(l)] - learning_rate * grads['db' + str(l)]
+    return parameters
+
 def deep_neural_network(X, Y, layer_dims, layer_gs, iterations = 10000, learning_rate = 1.2, print_cost = True):
     print("X.shape = " + str(X.shape))
     print("Y.shape = " + str(Y.shape))
@@ -120,25 +153,18 @@ def deep_neural_network(X, Y, layer_dims, layer_gs, iterations = 10000, learning
         caches = {} # contains Z and A of each layer, caches['A0'] = X
         caches['A0'] = X
 
-        A_prev = X
-        for l in range(1, L):
-            A, Z = linear_forward(A_prev, parameters['W' + str(l)], parameters['b' + str(l)], layer_gs[l])
-            caches['A' + str(l)] = A
-            caches['Z' + str(l)] = Z
-            A_prev = A
+        forward_caches = model_forward_propagation(X, parameters, layer_gs)
+        caches.append(forward_caches)
 
-        J = cost(A, Y)
+        J = cost(caches['A' + str(L)], Y)
+
         if print_cost and iter % 100 == 0:
             print("cost at iteration %i : %f" %(iter, J))
             costs.append(J)
 
         
-        dA = -1 * (Y / A) + (1 - Y) / (1 - A)
-        for l in range(L - 1, 0, -1):
-            dZ, dW, db, dA_prev = linear_backward(dA, caches['A' + str(l-1)], caches['Z' + str(l)], parameters['W' + str(l)], layer_gs[l])
-            parameters['W' + str(l)] = parameters['W' + str(l)] - learning_rate * dW
-            parameters['b' + str(l)] = parameters['b' + str(l)] - learning_rate * db
-            dA = dA_prev
+        grads = model_backward_propagation(caches['A' + str(L)], Y, caches, layers_gs)
+        update_parameters(parameters, grads)
     # print(parameters)
     # plot the cost
 
