@@ -84,24 +84,24 @@
 
   1. L2-regularization 
     - relies on the assumption that *a model with smaller weights is simpler than model with large weights*
-
-    ```python
+    
+  ```python
     # cost with L2 retularization
     L2_regularization_cost = (lambda / 2m)* (sum(W1^2) + sum(W2^2) + ... + sum(Wn^2)) 
     J_retularization(W, b) = cross_entropy_cost + L2_regularization_cost
-  
+    
     # d(L2_regularization_cost) / dW = (lambda / m) * W
     # dW[l] = np.dot(dZ[l], A[l-1].T) / m
-  
+    
     dW_regularization[l] = dW[l]+ (lambda / m) * W[l]
-
+    
     # It's called 'weight decay' because this makes weights end up smaller. Why?
     # Because when updating W with dW, (learning_rate * lambds / m) is smaller than 1. 
     # Therefore, updated W[l] is smaller than non-regularization.
-
+    
     W[l] = W[l] - learning_rate * dW_regularization[l]
          = (1 - learning_rate * lambda / m) * W[l] - learning_rate * dW[l]
-    ```
+  ```
 
   2. Drop-out
     - With dropout, the neurons become less sensitive to the activation. This would prevent overfitting (high variance).
@@ -109,16 +109,15 @@
     - Dropout should be used ONLY in training, not testing.
     - Dropout applys to both forward and backward propagation. 
     - Shown to be an adaptive form without regularization. But drop-out has a similar effect to L2-regularization.
-
-    ```python
+    
+  ```python 
     D[l] = (np.random.rand(A[l].shape) < keep_prob)
-
+    
     # by deviding keep_prob to keep the same expected value for activations as without dropout (inverted drop-out)
     A[l] = (A[l] * D[l]) / keep_prob  
     ...
-    dA[l] = (dA[l] * D[l]) / keep_prob 
-  
-    ```
+    dA[l] = (dA[l] * D[l]) / keep_prob
+  ```
 
 ## Gradient Checking
   ```python
