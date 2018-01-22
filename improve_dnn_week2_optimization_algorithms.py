@@ -53,6 +53,18 @@ def sigmoid_derivative_func(dA, Z):
      
 #################### Business ######################
 
+def initialize_parameters_he(layer_dims):
+    np.random.seed(1)
+
+    parameters = {}
+    L = len(layer_dims)
+
+    for i in range(1, L):
+        parameters['W' + str(i)] = np.random.randn(layer_dims[i], layer_dims[i-1]) * np.sqrt(2/layer_dims[i-1])
+        parameters['b' + str(i)] = np.zeros((layer_dims[i], 1))
+    return parameters
+
+
 def init(layer_dims):
     """ 
     Arguments:
@@ -132,7 +144,8 @@ def model_backward_propagation(AL, Y, parameters, caches, layer_gs):
 
     grads = {}
     for l in range(L - 1, 0, -1):
-        dZ, dW, db, dA_prev = linear_backward(dA, caches['A' + str(l-1)], caches['Z' + str(l)], parameters['W' + str(l)], layer_gs[l])
+        dZ, dW, db, dA_prev = linear_backward(
+            dA, caches['A' + str(l-1)], caches['Z' + str(l)], parameters['W' + str(l)], layer_gs[l])
         grads['dW' + str(l)] = dW
         grads['db' + str(l)] = db
         grads['dZ' + str(l)] = dZ
@@ -203,11 +216,8 @@ def split(X, Y, mini_batch_num, seed):
     return X_splitted, Y_splitted, count
 
 
-#def deep_neural_network(X, Y, layer_dims, layer_gs, iterations = 10000, learning_rate = 1.2, print_cost = True):
-    ## call optimized
-    #deep_neural_network_optimized(X, Y, layer_dims, layer_gs, iterations, learning_rate, mini_batch_num = X.shape[1], beta1 = 0, beta2 = 0, epsilon = 0, print_cost)
-
-def deep_neural_network_optimized(X, Y, layer_dims, layer_gs, iterations = 10000, learning_rate = 1.2, mini_batch_num = 64, beta1 = 0.9, beta2 = 0.999, epsilon = 10e-8, print_cost = True):
+def deep_neural_network_optimized(X, Y, layer_dims, layer_gs, iterations = 10000, learning_rate = 1.2, 
+    mini_batch_num = 64, beta1 = 0.9, beta2 = 0.999, epsilon = 1e-8, print_cost = True):
 
     print("X.shape = " + str(X.shape))
     print("Y.shape = " + str(Y.shape))
@@ -223,7 +233,7 @@ def deep_neural_network_optimized(X, Y, layer_dims, layer_gs, iterations = 10000
     t1 = time.time()
     # *NOTE*: init(layer_dims) in notebook may get diff result comparing with running 
     # initialize_parameters_deep() on server, even with same seed.
-    parameters = initialize_parameters(layer_dims) # week 4 : initialize_parameters_deep(layer_dims)
+    parameters = initialize_parameters_he(layer_dims) # week 4 : initialize_parameters_deep(layer_dims)
     adam_parameters = initialize_adam_parameters(layer_dims)
     L = len(layer_dims)
 
@@ -245,9 +255,10 @@ def deep_neural_network_optimized(X, Y, layer_dims, layer_gs, iterations = 10000
             J = cost(AL, Yi)
             
             grads = model_backward_propagation(AL, Yi, parameters, caches, layer_gs)
-            parameters, adam_parameters = update_parameters_adam(parameters, adam_parameters, grads, learning_rate, L, beta1, beta2, epsilon)
+            parameters, adam_parameters = update_parameters_adam(
+                parameters, adam_parameters, grads, learning_rate, L, beta1, beta2, epsilon)
 
-        if print_cost and iter % 1000 == 0:
+        if print_cost and iter % 100 == 0:
             print("cost at iteration %i : %f" %(iter, J))
             costs.append(J)           
 
@@ -264,6 +275,12 @@ def deep_neural_network_optimized(X, Y, layer_dims, layer_gs, iterations = 10000
     plt.show()
     """
     return parameters
+
+
+def deep_neural_network(X, Y, layer_dims, layer_gs, iterations = 10000, learning_rate = 1.2, print_cost = True):
+    return deep_neural_network_optimized(
+        X, Y, layer_dims, layer_gs, iterations, learning_rate, 
+        mini_batch_num = X.shape[1], beta1 = 0.9, beta2 = 0.999, epsilon = 1e-8, print_cost = True)
 
 """
 layer_dims = [train_X.shape[0], 5, 2, 1]
