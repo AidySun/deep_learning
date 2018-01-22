@@ -130,8 +130,8 @@ def model_backward_propagation(AL, Y, parameters, caches, layer_gs):
         dA = dA_prev
     return grads
   
-def update_parameters(parameters, grads, L):
-    for i in (1, L+1):
+def update_parameters(parameters, grads, learning_rate, L):
+    for l in range(1, L):
         parameters['W' + str(l)] = parameters['W' + str(l)] - learning_rate * grads['dW' + str(l)]
         parameters['b' + str(l)] = parameters['b' + str(l)] - learning_rate * grads['db' + str(l)]
     return parameters
@@ -153,18 +153,17 @@ def deep_neural_network(X, Y, layer_dims, layer_gs, iterations = 10000, learning
         caches = {} # contains Z and A of each layer, caches['A0'] = X
         caches['A0'] = X
 
-        forward_caches = model_forward_propagation(X, parameters, layer_gs)
-        caches.append(forward_caches)
+        forward_caches, AL = model_forward_propagation(X, parameters, layer_gs)
+        caches.update(forward_caches)
 
-        J = cost(caches['A' + str(L)], Y)
+        J = cost(AL, Y)
 
         if print_cost and iter % 100 == 0:
             print("cost at iteration %i : %f" %(iter, J))
             costs.append(J)
-
         
-        grads = model_backward_propagation(caches['A' + str(L)], Y, caches, layers_gs)
-        update_parameters(parameters, grads)
+        grads = model_backward_propagation(AL, Y, parameters, caches, layer_gs)
+        update_parameters(parameters, grads, learning_rate, L)
     # print(parameters)
     # plot the cost
 
@@ -182,3 +181,4 @@ parameters = deep_neural_network(train_x, train_y, layer_dims = [12288, 20, 7, 5
 predictions_train = predict(train_x, train_y, parameters)
 predictions_test = predict(test_x, test_y, parameters)
 """
+
