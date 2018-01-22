@@ -144,6 +144,8 @@ def deep_neural_network(X, Y, layer_dims, layer_gs, iterations = 10000, learning
     print("iterations = " + str(iterations))
     print("learning_rate = " + str(learning_rate))
 
+    t1 = time.time()
+    
     # *NOTE*: init(layer_dims) in notebook may get diff result comparing with running initialize_parameters_deep() on server, even with same seed.
     parameters = initialize_parameters_deep(layer_dims)
     L = len(layer_dims)
@@ -166,6 +168,8 @@ def deep_neural_network(X, Y, layer_dims, layer_gs, iterations = 10000, learning
         update_parameters(parameters, grads, learning_rate, L)
     # print(parameters)
     # plot the cost
+    t2 = time.time()
+    print("\nrunning time: %.2f seconds"  %(t2-t1))
 
     plt.plot(np.squeeze(costs))
     plt.ylabel('cost')

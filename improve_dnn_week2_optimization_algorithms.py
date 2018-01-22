@@ -215,7 +215,12 @@ def deep_neural_network_optimized(X, Y, layer_dims, layer_gs, iterations = 10000
     print("layer_gs = " + str(layer_gs))
     print("iterations = " + str(iterations))
     print("learning_rate = " + str(learning_rate))
+    print("mini_batch_num = " + str(mini_batch_num))
+    print("beta1 = " + str(beta1))
+    print("beta2 = " + str(beta2))
+    print("epsilon = " + str(epsilon) + "\n")
 
+    t1 = time.time()
     # *NOTE*: init(layer_dims) in notebook may get diff result comparing with running 
     # initialize_parameters_deep() on server, even with same seed.
     parameters = initialize_parameters(layer_dims) # week 4 : initialize_parameters_deep(layer_dims)
@@ -248,12 +253,16 @@ def deep_neural_network_optimized(X, Y, layer_dims, layer_gs, iterations = 10000
 
     # print(parameters)
     # plot the cost
+    t2 = time.time()
+    print("\nrunning time: %.2f seconds"  %(t2-t1))
 
+    """
     plt.plot(np.squeeze(costs))
     plt.ylabel('cost')
     plt.xlabel('iterations (per tens)')
     plt.title("Learning rate =" + str(learning_rate))
     plt.show()
+    """
     return parameters
 
 """
