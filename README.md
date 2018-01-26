@@ -70,6 +70,15 @@
     # ReLU should use He Initialization
     W = np.random.randn(n, n-1) * np.sqrt(2 / (n-1)) 
   ```
+  
+## Normalization
+  ```python
+  means = X[i].sum() / m
+  X = X - means
+
+  variances = (np.sum(np.power(X[i], 2)) / m
+  X = X / variances
+  ```  
 
 ## Cost
   ```python
@@ -127,4 +136,20 @@
   grad_approx = (J+ - J-) / (2 * epsilon)
 
   diff = (grad - grad_approx).norm / (grad.norm() + grad_approx.norm())
+  ```
+
+## Hyperparameters tuning
+  - Scale to pick hyperparamters
+    - linear way is not the best because the impact in different range is quite different
+      E.g. beta in monmentum, the more beta close to 1, the more impact with tiny changes. (0.9 ~ 0.9005 comparing to 0.999 ~ 0.9995)
+  ```python
+  # linear r [-4, 0]
+  r = -4 * np.random.rand()
+  # alpha is in [0.0001, 1]
+  alpha = np.power(10, r)
+
+  # liner r [-3, -1]
+  r = np.random.uniform(-3, -1)
+  # beta is in [0.9, 0.999]
+  # beta = 1 - np.power(10, r)
   ```
