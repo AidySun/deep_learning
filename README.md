@@ -4,10 +4,10 @@
   1. Reduce cost
     * gradient reduce
     * ...
-  2. Prevent overfitting
+  2. Prevent over-fitting
     * more data
     * regularization
-    * dorp-out
+    * drop-out
     * ...
 
 ## Basic recipe for ML
@@ -62,9 +62,9 @@
 
 ## Parameters Initialization
   ```python
-    # init W with zeros will cause all layers do the same thing, cost is not changed (faile to break symmetry)
+    # init W with zeros will cause all layers do the same thing, cost is not changed (fail to break symmetry)
 
-    # init W with big numbers can break semmetry, 
+    # init W with big numbers can break symmetry, 
     # but it will slow down optimization algorithm (high loss for wrong predict)
 
     # ReLU should use He Initialization
@@ -87,15 +87,15 @@
 
   ```
 ## Regularization  
-  * To reduce/prevent overfitting.
+  * To reduce/prevent over-fitting.
   * Drive weights to lower values.
-  * Hurts training set performance but gives better test accurancy.
+  * Hurts training set performance but gives better test accuracy.
 
   1. L2-regularization 
     - relies on the assumption that *a model with smaller weights is simpler than model with large weights*
     
   ```python
-    # cost with L2 retularization
+    # cost with L2 regularization
     L2_regularization_cost = (lambda / 2m)* (sum(W1^2) + sum(W2^2) + ... + sum(Wn^2)) 
     J_retularization(W, b) = cross_entropy_cost + L2_regularization_cost
     
@@ -105,7 +105,7 @@
     dW_regularization[l] = dW[l]+ (lambda / m) * W[l]
     
     # It's called 'weight decay' because this makes weights end up smaller. Why?
-    # Because when updating W with dW, (learning_rate * lambds / m) is smaller than 1. 
+    # Because when updating W with dW, (learning_rate * lambda / m) is smaller than 1. 
     # Therefore, updated W[l] is smaller than non-regularization.
     
     W[l] = W[l] - learning_rate * dW_regularization[l]
@@ -114,15 +114,15 @@
 
   2. Drop-out
     - With dropout, the neurons become less sensitive to the activation. This would prevent overfitting (high variance).
-    - Intution: cannot rely on any one feature, so have to spread out weights (shrink weights).
+    - Intuition: cannot rely on any one feature, so have to spread out weights (shrink weights).
     - Dropout should be used ONLY in training, not testing.
-    - Dropout applys to both forward and backward propagation. 
+    - Dropout apply to both forward and backward propagation. 
     - Shown to be an adaptive form without regularization. But drop-out has a similar effect to L2-regularization.
     
   ```python 
     D[l] = (np.random.rand(A[l].shape) < keep_prob)
     
-    # by deviding keep_prob to keep the same expected value for activations as without dropout (inverted drop-out)
+    # by dividing keep_prob to keep the same expected value for activations as without dropout (inverted drop-out)
     A[l] = (A[l] * D[l]) / keep_prob  
     ...
     dA[l] = (dA[l] * D[l]) / keep_prob
@@ -138,10 +138,10 @@
   diff = (grad - grad_approx).norm / (grad.norm() + grad_approx.norm())
   ```
 
-## Hyperparameters tuning
-  - Scale to pick hyperparamters
+## Hyper-parameters tuning
+  - Scale to pick hyper-parameters
     - linear way is not the best because the impact in different range is quite different
-      E.g. beta in monmentum, the more beta close to 1, the more impact with tiny changes. (0.9 ~ 0.9005 comparing to 0.999 ~ 0.9995)
+      E.g. beta in momentum, the more beta close to 1, the more impact with tiny changes. (0.9 ~ 0.9005 comparing to 0.999 ~ 0.9995)
   ```python
   # linear r [-4, 0]
   r = -4 * np.random.rand()
