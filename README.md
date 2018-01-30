@@ -72,13 +72,24 @@
   ```
   
 ## Normalization
+  - Regression
   ```python
-  means = X[i].sum() / m
-  X = X - means
-
-  variances = (np.sum(np.power(X[i], 2)) / m
-  X = X / variances
+    means = X[i].sum() / m
+    X = X - means
+    
+    variances = (np.sum(np.power(X[i], 2)) / m
+    X = X / variances
   ```  
+
+  - Batch Norm
+  ```python
+    # for layer l, Z_l.shape = (l, m)
+    means = (Z_i.sum()) / m
+    variance = np.sum(np.power(Z_i, 2)) / m
+    Z_i_norm = (Z_i -  means) / (np.sqrt(variance + epsilon))
+    Z_i_final = gamma * Z_i_norm + beta
+
+  ```
 
 ## Cost
   ```python
