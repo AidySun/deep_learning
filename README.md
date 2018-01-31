@@ -61,6 +61,7 @@
   ```
 
 ## Parameters Initialization
+  - `W > I` could cause exploding, or vanishing when `W < I`
   ```python
     # init W with zeros will cause all layers do the same thing, cost is not changed (faile to break symmetry)
 
