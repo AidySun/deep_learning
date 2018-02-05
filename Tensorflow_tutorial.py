@@ -21,7 +21,6 @@ def init_parameters(layer_dims):
 
     # layer numbers including input layer
     L = len(layer_dims)
-    print("layer number: " + str(L))
 
     parameters = {}
 
@@ -66,35 +65,8 @@ def calculate_cost(ZL, Y):
     cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits = logits, labels = labels))
     return cost
 
-def shuffle_2D_matrix(matrix, seed, axis = 0):
-    """
-    Shuffle 2D matrix by column or row.
-    
-    Arguments:
-    matrix: 2D matrix to be shuffled
-    seed  : seed of numpy.random
-    axis  : zero - by column, non-zero - by row
-    
-    Returns:
-    shuffled_matrix: shuffled matrix
-    """
-    
-    np.random.seed(seed)
-    
-    if axis == 0:
-        m = matrix.shape[1]
-        permutation = list(np.random.permutation(m))
-        shuffled_matrix = matrix[:, permutation]
-    else:
-        m = matrix.shape[0]
-        permutation = list(np.random.permutation(m))
-        shuffled_matrix = matrix[permutation, :]
 
-    return shuffled_matrix
-
-def split(matrix, by, seed):
-    shuffled_matrix = shuffle_2D_matrix(matrix, seed)
-
+def split(matrix, by):
     m = matrix.shape[1]
 
     count = math.floor(m / by)
@@ -108,9 +80,17 @@ def split(matrix, by, seed):
 
     return splitted
 
-def split_data_for_minibatch(X, Y, minibatch_size, seed):
-    splitted_X = split(X, minibatch_size, seed)
-    splitted_Y = split(Y, minibatch_size, seed)
+def shuffle_and_split_data(X, Y, minibatch_size, seed):
+    np.random.seed(seed)
+
+    m = X.shape[1]
+    permutation = list(np.random.permutation(m))
+
+    shuffled_X = X[:, permutation]
+    shuffled_Y = Y[:, permutation]
+
+    splitted_X = split(shuffled_X, minibatch_size)
+    splitted_Y = split(shuffled_Y, minibatch_size)
 
     return (splitted_X, splitted_Y)
 
@@ -157,7 +137,7 @@ def tensorflow_model(X_train,
         session.run(init)
 
         for i in range(iterations + 1):
-            (splitted_X, splitted_Y) = split_data_for_minibatch(X_train, Y_train, minibatch_size, i + 1)
+            (splitted_X, splitted_Y) = shuffle_and_split_data(X_train, Y_train, minibatch_size, i + 1)
 
             num_minibatches = len(splitted_X)
 
