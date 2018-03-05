@@ -2,13 +2,13 @@
 
 ## Steps for developing a neural network
   1. Reduce cost
-    * gradient reduce
-    * ...
+     * gradient reduce
+     * ...
   2. Prevent over-fitting
-    * more data
-    * regularization
-    * drop-out
-    * ...
+     * more data
+     * regularization
+     * drop-out
+     * ...
 
 ## Basic recipe for ML
   1. High bias (training set performance)
@@ -92,7 +92,7 @@
 
   ```
 
-## Cost
+## Cost (gradients)
   ```python
   # cross_entropy_cost
   J(W, b) = - (y * log(a) + (1-y) * log(1-a)) / m
@@ -149,6 +149,27 @@
 
   diff = (grad - grad_approx).norm / (grad.norm() + grad_approx.norm())
   ```
+
+## Mini-batch
+  - Parameters are adjusted for each epoch X
+  * Momentum
+    - smooth out the update of parameters in mini-batch
+    ```python
+    v[dW(i)] = beta * v[dW(i)] + (1-beta)grads[dW(i)]  // default beta = 0.9 is reasonable
+    parameters[W(i)] = parameters[W(i)] - learning_rate * v[dW(i)]
+    // same for db
+    ```
+  * Adom
+    ```pyton
+    v[dW_i] = beta1 * v[dW_i] + (1 - beta1) * dW_i
+    v_correct[dW_i] = v[dW_i] / (1 - np.power(beta1, i))
+    
+    s[dW_i] = beta2 * s[dW_i] + (1 - beta2) * np.power(dW_i, 2)
+    s_correct[dW_i] = s[dW_i] / (1 - np.power(beta2, i))
+    
+    W_i = W_i - learning_rate * (v_correct[dW_i] / (np.sqrt(s_correct[dW_i]) + epsilon))
+    // same for db
+    ```
 
 ## Hyper-parameters tuning
   - Scale to pick hyper-parameters
