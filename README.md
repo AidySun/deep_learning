@@ -107,6 +107,8 @@
 
   1. L2-regularization 
     - relies on the assumption that *a model with smaller weights is simpler than model with large weights*
+    - forward (cost) and backward (W update) propagations both need change
+    - weight decay
     
   ```python
     # cost with L2 regularization
@@ -134,11 +136,13 @@
     - Shown to be an adaptive form without regularization. But drop-out has a similar effect to L2-regularization.
     
   ```python 
+    # forward propagation
     D[l] = (np.random.rand(A[l].shape) < keep_prob)
     
     # by dividing keep_prob to keep the same expected value for activations as without dropout (inverted drop-out)
     A[l] = (A[l] * D[l]) / keep_prob  
-    ...
+
+    # backward propagation
     dA[l] = (dA[l] * D[l]) / keep_prob
   ```
 
