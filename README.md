@@ -111,7 +111,7 @@
   ```python
     # cost with L2 regularization
     L2_regularization_cost = (lambda / 2m)* (sum(W1^2) + sum(W2^2) + ... + sum(Wn^2)) 
-    J_retularization(W, b) = cross_entropy_cost + L2_regularization_cost
+    J_regularization(W, b) = cross_entropy_cost + L2_regularization_cost
     
     # d(L2_regularization_cost) / dW = (lambda / m) * W
     # dW[l] = np.dot(dZ[l], A[l-1].T) / m
