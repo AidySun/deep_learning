@@ -65,11 +65,13 @@
   ```python
     # init W with zeros will cause all layers do the same thing, cost is not changed (fail to break symmetry)
 
-    # init W with big numbers can break symmetry, 
+    # init W with random big numbers can break symmetry, 
     # but it will slow down optimization algorithm (high loss for wrong predict)
+    # NOTE: do not initialize parameters too large!
 
-    # ReLU should use He Initialization
+    # *He initialization* works well for networks with ReLU activations.
     W = np.random.randn(n, n-1) * np.sqrt(2 / (n-1)) 
+    // Xavier initialization is multiply np.sqrt(1 / (n-1))
   ```
 
 ## Normalization
@@ -163,10 +165,10 @@
     ```pyton
     v[dW_i] = beta1 * v[dW_i] + (1 - beta1) * dW_i
     v_correct[dW_i] = v[dW_i] / (1 - np.power(beta1, i))
-    
+
     s[dW_i] = beta2 * s[dW_i] + (1 - beta2) * np.power(dW_i, 2)
     s_correct[dW_i] = s[dW_i] / (1 - np.power(beta2, i))
-    
+
     W_i = W_i - learning_rate * (v_correct[dW_i] / (np.sqrt(s_correct[dW_i]) + epsilon))
     // same for db
     ```
