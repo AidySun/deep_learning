@@ -192,3 +192,16 @@
   # beta is in [0.9, 0.999]
   beta = 1 - np.power(10, r)
   ```
+
+## Convolutional Neural Network
+  - convolution operation
+    - input * filter  =  output
+      - (n x n) * (f x f) = (n-f+1) x (n-f+1)
+    - problems:
+      - vanishing (because output is smaller)
+      - unfair to edge pixels 
+    - solution: **padding**
+      - p = (f - 1) / 2
+    - why filter usually is odd?
+      - easy for padding
+      - central pixel ???
