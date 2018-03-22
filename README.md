@@ -196,12 +196,16 @@
 ## Convolutional Neural Network
   - convolution operation
     - input * filter  =  output
-      - (n x n) * (f x f) = (n-f+1) x (n-f+1)
+      - `(n x n) * (f x f) = (n-f+1) x (n-f+1)`
     - problems:
       - vanishing (because output is smaller)
       - unfair to edge pixels 
     - solution: **padding**
-      - p = (f - 1) / 2
+      - `p = (f - 1) / 2`
+      - output = `(n - f + 2p + 1) x (n - f + 2p + 1)`
     - why filter usually is odd?
       - easy for padding
       - central pixel ???
+    - stride
+      - output = `((n - f + 2p)/s + 1) x ((n - f + 2p)/s + 1)`
+      - `floor()` rounding is used
