@@ -194,18 +194,30 @@
   ```
 
 ## Convolutional Neural Network
-  - convolution operation
+
+  - Convolution operation
+
+    **NOTE:** symbol `*` in this section is convolution operation, not multiply and numpy.dot()
+    - cross-correlation (flipping filter) may not be mentioned
     - input * filter  =  output
-      - `(n x n) * (f x f) = (n-f+1) x (n-f+1)`
+      - `[n, n] * [f, f] = [(n-f+1), (n-f+1)]`
     - problems:
-      - vanishing (because output is smaller)
+      - vanishing (because output is getting smaller)
       - unfair to edge pixels 
     - solution: **padding**
-      - `p = (f - 1) / 2`
-      - output = `(n - f + 2p + 1) x (n - f + 2p + 1)`
+      - output = `[(n - f + 2p + 1), (n - f + 2p + 1)]`
+      - to make the output the same size as input
+        - `p = (f - 1) / 2`
     - why filter usually is odd?
       - easy for padding
       - central pixel ???
     - stride
-      - output = `((n - f + 2p)/s + 1) x ((n - f + 2p)/s + 1)`
+      - output = `[((n - f + 2p)/s + 1),  ((n - f + 2p)/s + 1)]`
       - `floor()` rounding is used
+
+  - Pooling
+    - comnine multiple neuron clusters into a single neuron
+    - `max` and `avg`      
+    
+  - Fully connected 
+    - non-convolution, same as multip-layer perceptron network (MLP)
