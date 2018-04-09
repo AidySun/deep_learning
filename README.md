@@ -195,8 +195,9 @@
 
 ## Convolutional Neural Network
   - Why Convolutions
-    - Parameter sharing: a feature detector (filter) is shared 
+    - Parameter sharing: a feature detector (filter) is shared
       - (e.g. edge detector filter that is useful in part of image is also useful for another part of image)
+      - much less paramters than MLP to learn
     - Sparsity of connections: in each layer, each output value only depends on a small number of input (conv layer with filter)
 
   - Convolution operation
