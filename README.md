@@ -221,7 +221,7 @@
       - `floor()` rounding is used
 
   - Pooling
-    - comnine multiple neuron clusters into a single neuron
+    - combine multiple neuron clusters into a single neuron
     - `max` and `avg`      
     
   - Fully connected 
