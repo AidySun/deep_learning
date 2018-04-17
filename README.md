@@ -219,10 +219,15 @@
     - stride
       - output = `[((n - f + 2p)/s + 1),  ((n - f + 2p)/s + 1)]`
       - `floor()` rounding is used
+    - 1 by 1 conv layer
+      - 1 * 1 * n[c-pre] * n[c] (filter)
+      - change (increase/decrease/keep same) channel
+      - bottleneck layer - which can reduce the number of parameter without affecting performance (Google inception network)
 
   - Pooling
     - combine multiple neuron clusters into a single neuron
     - `max` and `avg`      
+    - shrink height and wight (1X1 conv layer can shrink channel)
     
   - Fully connected 
     - non-convolution, same as multip-layer perceptron network (MLP)
