@@ -24,30 +24,46 @@
       - Dropout
     - (NN architecture search)
 
+## Terminologies
+  - Epoch     : **entire** dataset is passed forward and backward through the neural network only ONCE
+    - **entire** means the whole dataset may not be passed to network at the same time, like mini-batch
+  - Batch Size: number of training examples in a single batch
+  - Iterations: the number of batches needed to complete one epoch
+    - `#iteration = #examples / #batch-size`
+
 ## Activation Functions and Derivatives
+  Activation function (a.k.s. transfer function) maps the resulting values into range. E.g. (0, 1) or (-1, 1)
+  Activation functions can be basically divided to *Linear* and *Non-linear* activation functions. 
+  [Common Activation Functions Cheatsheet](images/common_activation_functions_cheatsheet.png)
+
   * ReLU (Rectified Linear Unit)
+    - result range [0, +infinity)
     ```python
     g(z) = a = max(0, z)
     g'(z) = 0 [when z < 0]; 1 [when z >= 0]  # (A > 0)
     # dZ = dA * g'(z) = np.multiply(dA, np.int64(A > 0))
     ```
   * Leaky ReLU
+    - result range (-infinity, +infinity)
     ```python
     g(z) = a = max(0.01 * z, z)
     g'(z) = 0.01 [when z < 0]; 1 [when z >= 0]
     ```
-  * tanh
-    ```python
+  * tanh 
+    - result range (-1, 1)
+    ```python 
     g(z) = a = (e[z] - e[-z]) / (e[z] + e[-z])
     g'(z) = (1 - a.power(2))
     ```  
-  * sigmoid
+  * sigmoid 
+    - result range (0, 1)
     ```python
     g(z) = a = 1 / (1 + e.power(-z))
     g'(z) = a * (1 - a)
     # da = -(y/a) + (1-y)/(1-a)
     # dz = da * g'(z) = a * (1-a) * (-y/a + (1-y)/(1-a)) = a - y
     ```
+    - *sigmoid* is for two-class logistic regression while **softmax** is for multipclass logistic regression
 
 
 ## Backward Propagation
