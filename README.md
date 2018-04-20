@@ -5,7 +5,7 @@
      * gradient reduce
      * ...
   2. Prevent over-fitting
-     * more data
+     * more data (data augmentation)
      * regularization
      * drop-out
      * ...
@@ -84,15 +84,22 @@
     X = X / variances
   ```  
 
-  - Batch Norm
-  ```python
-    # for layer l, Z_l.shape = (l, m)
-    means = (Z_i.sum()) / m
-    variance = np.sum(np.power(Z_i, 2)) / m
-    Z_i_norm = (Z_i -  means) / (np.sqrt(variance + epsilon))
-    Z_i_final = gamma * Z_i_norm + beta
+  - Batch Normalization (BN)
+    - Input norm can reduce the affect of distribution difference of input data
+    - Same as above, normalization between layers can make layers more independently
+      - which means less effect when previous output changes
+    - BN has slight regularization effect, similar to dropout
+    - Can use bigger learning rate 
+    - Batch norm affect batch-size during training, but when predecting, it may just one input
+      - running average 
+      ```python
+       # for layer l, Z_l.shape = (l, m)
+        means = (Z_i.sum()) / m
+       variance = np.sum(np.power(Z_i, 2)) / m
+        Z_i_norm = (Z_i -  means) / (np.sqrt(variance + epsilon))
+        Z_i_final = gamma * Z_i_norm + beta
 
-  ```
+      ```
 
 ## Cost (gradients)
   ```python
@@ -210,9 +217,6 @@
       - vanishing (because output is getting smaller)
       - unfair to edge pixels 
     - solution: **padding**
-      - output = `[(n - f + 2p + 1), (n - f + 2p + 1)]`
-      - to make the output the same size as input
-        - `p = (f - 1) / 2`
     - why filter usually is odd?
       - easy for padding
       - central pixel ???
@@ -226,3 +230,37 @@
     
   - Fully connected 
     - non-convolution, same as multip-layer perceptron network (MLP)
+
+## Residual Networks (ResNets)
+  - Why
+    - Very deep neural networks can be very slow because vanishing gradient (gradient decrease to zero quickly)
+
+  - Two main types of blocks 
+    - Identity Block (input activation has the same dimension with output activation)
+    - Convolutional Block
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
