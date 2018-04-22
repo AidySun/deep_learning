@@ -259,6 +259,7 @@
   - Two main types of blocks 
     - Identity Block (input activation has the same dimension with output activation)
     - Convolutional Block
+      - shortcut has Conv and BN to resize the input to be the same dimension of the output to be added with
 
 
 
