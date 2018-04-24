@@ -261,11 +261,28 @@
     - Convolutional Block
       - shortcut has Conv and BN to resize the input to be the same dimension of the output to be added with
 
+## Inception Networks
+  - Paper "Going Deeper with Convolutions" by Szegedy
+  - same shape with different channels, concat them as one layer
+  - GooLeNet
 
+## Data Argumentation
+  - Mirroring
+  - Random Cropping
+  - Rotation
+  - Shearing
+  - Local Warping
+  - Color Shifting
 
+## Transfer Learning
+  - Init with pretrained models/parameters 
 
+## Data vs. Hand-engineering
+  - Data amount
+    - Speech Recognition > Image Recognition > Object Detection
 
-
+## Object Detection
+  - Classification -> Object Localization -> Multiple Detection
 
 
 
