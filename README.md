@@ -283,6 +283,15 @@
 
 ## Object Detection
   - Classification -> Object Localization -> Multiple Detection
+  - YOLO
+  - Region Propose
+    - Sliding Windows
+    - R-CNN - reigions with CNN 
+      - segmentation algorithm to propose regions (with sliding windows???)
+      - output is **bounding box**, not the shape of region
+    - Fast R-CNN (convolutional implementation of sliding window)
+    - Faster R-CNN (convolutional implemention of region propostion)
+      - still slower than YOLO
 
 
 
