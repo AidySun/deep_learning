@@ -254,7 +254,8 @@
 
 ## Residual Networks (ResNets)
   - Why
-    - Very deep neural networks can be very slow because vanishing gradient (gradient decrease to zero quickly)
+    - lower learning speed with deeper networks, because of vanishing gradient (gradient decrease to zero quickly)
+    - deeper networks cause perforcement degrading 
 
   - Two main types of blocks 
     - Identity Block (input activation has the same dimension with output activation)
@@ -283,16 +284,39 @@
 
 ## Object Detection
   - Classification -> Object Localization -> Multiple Detection
+
   - YOLO
+    - NMS _(non-maximum suppression)_      
+
   - Region Propose
     - Sliding Windows
-    - R-CNN - reigions with CNN 
-      - segmentation algorithm to propose regions (with sliding windows???)
+    - R-CNN _(Reigions with CNN)_
+      - propose regions with algorithm *Seletive Search*
+      - then run a CNN on **each** of region proposals
       - output is **bounding box**, not the shape of region
-    - Fast R-CNN (convolutional implementation of sliding window)
-    - Faster R-CNN (convolutional implemention of region propostion)
-      - still slower than YOLO
+    - Fast R-CNN 
+      - perform *feature extraction* over image before proposing regions
+    - Faster R-CNN 
+      - RPN _(Region Proposal Network)_
+      - Faster R-CNN = RPN + Fast R-CNN
+    - R-FCN _(Region-based Fully Convolutional Net)_
+    - SSD _(Single Shot Multibox Detector)_
+      - region preposing and classification were done in two seperate networks (CNN),
+        SSD does the two in a "single shot".
+      - it ignores the step of region proposing
+      - using NMS
 
+
+## NN Architectures
+  - Feedforward networks, like cat/dog classification, samples have no 
+  - RNN
+    - Recurrent Neural Network (时间递归)
+      - LSTM (long short-term memory)
+        - partially avoid vanishing gradient of RNN
+    - Recursive Neural Network (结构递归)
+  - Neural Network Attention
+    - less computation resource than RNN and LSTM
+    - avoid vanishing gradient
 
 
 
