@@ -318,8 +318,18 @@
     - less computation resource than RNN and LSTM
     - avoid vanishing gradient
 
-
-
+## Face Recognition
+  - Verification v.s. Recognition
+    - verification is 1:1 problem. verify input is the same as expected.
+    - recognition is 1:n problem. 
+  - image -> CNN -> SoftMax -> output
+    - input data dependent
+    - e.g. CNN was trained with 100 persons, when the 101st persion is added, CNN requires retrained
+  - Similarity function
+    - `if d(image1, image2) < threshold: same`
+    - Siamese Network (DeepFace)
+      - <code>distance(x1, x2) = ||f(x1) - f(x2)||<sup>2</sup></code>
+      - `f(x)` is encoding of input `x` (or the last FC layer vector)
 
 
 
