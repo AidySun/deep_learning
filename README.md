@@ -240,6 +240,7 @@
       - output = `[((n - f + 2p)/s + 1),  ((n - f + 2p)/s + 1)]`
       - `floor()` rounding is used
     - 1 by 1 conv layer
+      - NiN (Network in Network)
       - 1 * 1 * n[c-pre] * n[c] (filter)
       - change (increase/decrease/keep same) channel
       - bottleneck layer - which can reduce the number of parameter without affecting performance (Google inception network)
@@ -250,7 +251,7 @@
     - shrink height and wight (1X1 conv layer can shrink channel)
     
   - Fully connected 
-    - non-convolution, same as multip-layer perceptron network (MLP)
+    - non-convolution, same as multilayer perceptron network (MLP)
 
 ## Residual Networks (ResNets)
   - Why
@@ -264,7 +265,7 @@
 
 ## Inception Networks
   - Paper "Going Deeper with Convolutions" by Szegedy
-  - same shape with different channels, concat them as one layer
+  - same shape with different channels, concat them as one layer (Filter concatenation)
   - GooLeNet
 
 ## Data Argumentation
@@ -324,7 +325,7 @@
     - recognition is 1:n problem. 
   - image -> CNN -> SoftMax -> output
     - input data dependent
-    - e.g. CNN was trained with 100 persons, when the 101st persion is added, CNN requires retrained
+    - e.g. CNN was trained with 100 persons, when the 101st person is added, CNN requires retraining
   - Similarity function
     - `if d(image1, image2) < threshold: same`
     - Siamese Network (DeepFace)
