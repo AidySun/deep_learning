@@ -332,7 +332,7 @@
       - <code>distance(x1, x2) = ||f(x1) - f(x2)||<sup>2</sup></code>
       - `f(x)` is encoding of input `x` (or the last FC layer vector)
 
-
+## Neural Style Transfer (NST)
 
 
 
