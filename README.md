@@ -330,8 +330,24 @@
     - Siamese Network (DeepFace)
       - <code>distance(x1, x2) = ||f(x1) - f(x2)||<sup>2</sup></code>
       - `f(x)` is encoding of input `x` (or the last FC layer vector)
+  - FaceNet
+    - triplet loss (anchor, positive, negative)
+    - training dataset should choose those triples `d(a, p)` close to `d(a, n)` 
+    - <code>Loss(A, P, N) = max(||f(A) - f(P)||<sup>2</sup> - ||f(A) - f(N)||<sup>2</sup> + alpha, 0)</code>
+
+## Neural Style Transfer
+  - 
 
 
+## Recurrent Neural Network (RNN)
+  - Why
+    - for problems that input and output have differect dimensions
+    - features are not shared across diff position (of text for example)
+  - Weekness
+    - only previous/earlier input are used to predection in one layer
+    - Bidirectional RNN (BRNN)
+  - a<sup>\<t\></sup> = g<sub>1<t\></sub>(W<sub>aa</sub> a<sup>\<t-1\></sup> + W<sub>ax</sub> x<sup>\<t\></sup> + b<sub>a</sub>)        # generally g<sub>1</sub> = tanh/ReLu
+  - y_hat<sup>\<t\></sup> = g<sub>2</sub>(W<sub>ya</sub> a <sup>\<t\></sup> + b<sub>y</sub>)      # generally g<sub>2</sub> = Sigmod
 
 
 
