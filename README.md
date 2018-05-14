@@ -30,6 +30,9 @@
   - Batch Size: number of training examples in a single batch
   - Iterations: the number of batches needed to complete one epoch
     - `#iteration = #examples / #batch-size`
+  - Exploding gradients 
+    - parameters go large, even NaN
+    - solution: gradient clipping
 
 ## Activation Functions and Derivatives
   Activation function (a.k.s. transfer function) maps the resulting values into range. E.g. (0, 1) or (-1, 1)
@@ -346,10 +349,16 @@
     - features are not shared across diff position (of text for example)
   - Weekness
     - only previous/earlier input are used to predection in one layer
-    - Bidirectional RNN (BRNN)
+      - Bidirectional RNN (BRNN)
+    - vanishing gradient in deep network 
+      - GRU (gated recurrent unit)
+
   - a<sup>\<t\></sup> = g<sub>1<t\></sub>(W<sub>aa</sub> a<sup>\<t-1\></sup> + W<sub>ax</sub> x<sup>\<t\></sup> + b<sub>a</sub>)        # generally g<sub>1</sub> = tanh/ReLu
   - y_hat<sup>\<t\></sup> = g<sub>2</sub>(W<sub>ya</sub> a <sup>\<t\></sup> + b<sub>y</sub>)      # generally g<sub>2</sub> = Sigmod
 
+## LTSM (long short-term memory)
+
+## BRNN (Bidirectional RNN)
 
 
 
