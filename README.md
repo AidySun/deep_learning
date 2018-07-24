@@ -35,7 +35,7 @@
     - solution: gradient clipping
 
 ## Activation Functions and Derivatives
-  Activation function (a.k.s. transfer function) maps the resulting values into range. E.g. (0, 1) or (-1, 1)
+  Activation function (a.k.a. transfer function) maps the resulting values into range. E.g. (0, 1) or (-1, 1).
   Activation functions can be basically divided to *Linear* and *Non-linear* activation functions. 
   [Common Activation Functions Cheatsheet](images/common_activation_functions_cheatsheet.png)
 
@@ -66,7 +66,7 @@
     # da = -(y/a) + (1-y)/(1-a)
     # dz = da * g'(z) = a * (1-a) * (-y/a + (1-y)/(1-a)) = a - y
     ```
-    - *sigmoid* is for two-class logistic regression while **softmax** is for multipclass logistic regression
+    - `sigmoid` is for two-class logistic regression while `softmax` is for multipclass logistic regression
 
 
 ## Backward Propagation
@@ -90,7 +90,7 @@
 
     # *He initialization* works well for networks with ReLU activations.
     W = np.random.randn(n, n-1) * np.sqrt(2 / (n-1)) 
-    // Xavier initialization is multiply np.sqrt(1 / (n-1))
+    # Xavier initialization is multiply np.sqrt(1 / (n-1))
   ```
 
 ## Normalization
@@ -114,7 +114,7 @@
       ```python
        # for layer l, Z_l.shape = (l, m)
         means = (Z_i.sum()) / m
-       variance = np.sum(np.power(Z_i, 2)) / m
+        variance = np.sum(np.power(Z_i, 2)) / m
         Z_i_norm = (Z_i -  means) / (np.sqrt(variance + epsilon))
         Z_i_final = gamma * Z_i_norm + beta
 
