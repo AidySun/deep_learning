@@ -34,7 +34,7 @@
     - parameters go large, even NaN
     - solution: gradient clipping
 
-## Activation Functions and Derivatives
+## Activation Functions
   Activation function (a.k.a. transfer function) maps the resulting values into range. E.g. (0, 1) or (-1, 1).
   Activation functions can be basically divided to *Linear* and *Non-linear* activation functions. 
   [Common Activation Functions Cheatsheet](images/common_activation_functions_cheatsheet.png)
@@ -68,6 +68,16 @@
     ```
     - `sigmoid` is for two-class logistic regression while `softmax` is for multipclass logistic regression
 
+## Derivatives
+
+Derivative is the slope of the function graph. `slope = height/weight` where `weight` is the change of input, 
+`height` is the change of output.
+
+```
+d(a^2) = 2a
+d(a^3) = 3a^2
+dlog(a) = 1/a
+```
 
 ## Backward Propagation
   ```python
