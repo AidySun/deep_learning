@@ -79,6 +79,8 @@ d(a^3) = 3a^2
 dlog(a) = 1/a
 ```
 
+![computing derivative](https://i.loli.net/2019/10/22/g927aKj16qDEYCf.png)
+
 ## Backward Propagation
   ```python
   dA[l] = np.dot(W[l+1].T, dZ[l+1])
