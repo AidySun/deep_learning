@@ -70,6 +70,7 @@
 
 ## Derivatives
 
+**gradient (also called the slope or derivative)**
 Derivative is the slope of the function graph. `slope = height/weight` where `weight` is the change of input, 
 `height` is the change of output.
 
@@ -82,6 +83,10 @@ dlog(a) = 1/a
 ![computing derivative](https://i.loli.net/2019/10/22/g927aKj16qDEYCf.png)
 
 ## Backward Propagation
+
+**Note:** np.dot() performs a matrix-matrix or matrix-vector multiplication. This is different from np.multiply() 
+and the * operator (which is equivalent to .* in Matlab/Octave), which performs an element-wise multiplication.
+
   ```python
   dA[l] = np.dot(W[l+1].T, dZ[l+1])
   dZ[l] = np.multiply(dA[l], g[l]'(Z))
@@ -89,6 +94,22 @@ dlog(a) = 1/a
   db[l] = np.sum(dZ[l], axis = 1, keepdims = True) / m
 
   # dZ[l] = dA[l] * g[l]'(Z[l]) = np.multiply(np.dot(W[l+1].T, dZ[l+1]), g[l]'(Z[l]))
+  ```
+
+## Loss / Cost Function
+
+### Loss
+The loss is used to evaluate the performance of your model. The bigger your loss is, the more different your predictions ( ŷ y^ ) are from the true values ( yy ). In deep learning, you use optimization algorithms like Gradient Descent to train your model and to minimize the cost.
+* L1 loss
+  ```python
+  def L1(yhat, y):
+    l = np.sum(np.abs(yhat - y))
+    return l
+  ```
+* L2 loss
+  ```python
+  def L2(yhat, y):
+    return np.dot(yhat-y, yhat-y)
   ```
 
 ## Parameters Initialization
@@ -106,6 +127,16 @@ dlog(a) = 1/a
   ```
 
 ## Normalization
+
+`softmax` function is a normalization function.
+   ```python
+   def softmax(x):
+    x_exp = np.exp(x)
+    exp_sum = np.sum(x_exp, axis = 1, keepdims = True)
+    sm = x_exp / exp_sum
+    return sm
+   ```
+
   - Regression
   ```python
     means = X[i].sum() / m
