@@ -40,6 +40,7 @@
   [Common Activation Functions Cheatsheet](images/common_activation_functions_cheatsheet.png)
 
   * ReLU (Rectified Linear Unit)
+    - first choice when you are not sure which activation function to use
     - result range [0, +infinity)
     ```python
     g(z) = a = max(0, z)
@@ -47,18 +48,21 @@
     # dZ = dA * g'(z) = np.multiply(dA, np.int64(A > 0))
     ```
   * Leaky ReLU
+    - little better than ReLU
     - result range (-infinity, +infinity)
     ```python
     g(z) = a = max(0.01 * z, z)
     g'(z) = 0.01 [when z < 0]; 1 [when z >= 0]
     ```
   * tanh 
+    - better than sigmoid, shift version of sigmoid
     - result range (-1, 1)
     ```python 
     g(z) = a = (e[z] - e[-z]) / (e[z] + e[-z])
     g'(z) = (1 - a.power(2))
     ```  
   * sigmoid 
+    - rearly used except the output layer when output range between `{0, 1}`
     - result range (0, 1)
     ```python
     g(z) = a = 1 / (1 + e.power(-z))
