@@ -1,5 +1,40 @@
 # Deep Neural Network
 
+<!-- MarkdownTOC autolink="true" -->
+
+- [Steps for developing a neural network](#steps-for-developing-a-neural-network)
+- [Basic recipe for ML](#basic-recipe-for-ml)
+- [Terminologies](#terminologies)
+- [Activation Functions](#activation-functions)
+- [Derivatives](#derivatives)
+- [Backward Propagation](#backward-propagation)
+- [Loss / Cost Function](#loss--cost-function)
+  - [Loss](#loss)
+- [Parameters Initialization](#parameters-initialization)
+- [Normalization](#normalization)
+- [Cost \(gradients\)](#cost-gradients)
+- [Regularization](#regularization)
+- [Gradient Checking](#gradient-checking)
+- [Mini-batch](#mini-batch)
+- [Hyper-parameters tuning](#hyper-parameters-tuning)
+- [Convolutional Neural Network](#convolutional-neural-network)
+- [Residual Networks \(ResNets\)](#residual-networks-resnets)
+- [Inception Networks](#inception-networks)
+- [Data Argumentation](#data-argumentation)
+- [Transfer Learning](#transfer-learning)
+- [Data vs. Hand-engineering](#data-vs-hand-engineering)
+- [Object Detection](#object-detection)
+- [NN Architectures](#nn-architectures)
+- [Face Recognition](#face-recognition)
+- [Neural Style Transfer](#neural-style-transfer)
+- [Recurrent Neural Network \(RNN\)](#recurrent-neural-network-rnn)
+- [LTSM \(long short-term memory\)](#ltsm-long-short-term-memory)
+- [BRNN \(Bidirectional RNN\)](#brnn-bidirectional-rnn)
+
+<!-- /MarkdownTOC -->
+
+
+
 ## Steps for developing a neural network
   1. Reduce cost
      * gradient reduce
@@ -65,7 +100,7 @@
     - rearly used except the output layer when output range between `{0, 1}`
     - result range (0, 1)
     ```python
-    g(z) = a = 1 / (1 + e.power(-z))
+    g(z) = a = 1 / (1 + e.power(-z)) = 1 / (1 + np.exp(-z))
     g'(z) = a * (1 - a)
     # da = -(y/a) + (1-y)/(1-a)
     # dz = da * g'(z) = a * (1-a) * (-y/a + (1-y)/(1-a)) = a - y
@@ -99,6 +134,9 @@ and the * operator (which is equivalent to .* in Matlab/Octave), which performs 
 
   # dZ[l] = dA[l] * g[l]'(Z[l]) = np.multiply(np.dot(W[l+1].T, dZ[l+1]), g[l]'(Z[l]))
   ```
+
+  <img src="https://i.loli.net/2019/10/29/7QtLlKACDMs6c4a.png" width=600 />
+  <img src="https://i.loli.net/2019/10/29/m57HyXSJ49iAEN8.png" width=600 />
 
 ## Loss / Cost Function
 
