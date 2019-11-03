@@ -3,7 +3,7 @@
 <!-- MarkdownTOC autolink="true" -->
 
 - [Steps for developing a neural network](#steps-for-developing-a-neural-network)
-- [Basic recipe for ML](#basic-recipe-for-ml)
+- [Bias & Variance](#bias--variance)
 - [Terminologies](#terminologies)
 - [Activation Functions](#activation-functions)
 - [Derivatives](#derivatives)
@@ -34,6 +34,13 @@
 <!-- /MarkdownTOC -->
 
 
+* Courses
+  1. Neural Networks and Deep Learning
+  2. Improving Deep Neural Networks: Hyperparameter tuning, Regularization and Optimization
+  3. Structuring Machine Learning Projects
+  4. Convolutional Neural Networks
+  5. Sequence Models
+
 
 ## Steps for developing a neural network
   1. Reduce cost
@@ -45,19 +52,25 @@
      * drop-out
      * ...
 
-## Basic recipe for ML
-  1. High bias (training set performance)
-    - larger network
-      - more layers
-      - more units
-    - training longer
-    - (NN architecture search)
-  2. High variance (dev set performance)
-    - more training data
-    - regularization
-      - L2
-      - Dropout
-    - (NN architecture search)
+## Bias & Variance
+
+| | high variance | high bias | high var & bias| low var & bias|
+|:--|:--:|:--:|:--:|:--:|
+|train set error: | 1% | 15% | 19% | 0.9% |
+|dev set error: | 11% | 16% |30% | 1% |
+
+1. High bias (training set performance)
+  - larger network
+    - more layers
+    - more units
+  - training longer
+  - (NN architecture search)
+2. High variance (dev set performance)
+  - more training data
+  - regularization
+    - L2
+    - Dropout
+  - (NN architecture search)
 
 ## Terminologies
   - Epoch     : **entire** dataset is passed forward and backward through the neural network only ONCE
@@ -156,19 +169,20 @@ The loss is used to evaluate the performance of your model. The bigger your loss
 
 ## Parameters Initialization
   - `W > I` could cause exploding, or vanishing when `W < I`
+     Init W with zeros will cause all layers do the same thing, cost is not changed (fail to break symmetry)
+
+     Init W with random big numbers can break symmetry, but it will slow down optimization algorithm (high loss for wrong predict)
+     **NOTE:** do not initialize parameters too large!
   ```python
-    # init W with zeros will cause all layers do the same thing, cost is not changed (fail to break symmetry)
-
-    # init W with random big numbers can break symmetry, 
-    # but it will slow down optimization algorithm (high loss for wrong predict)
-    # NOTE: do not initialize parameters too large!
-
     # *He initialization* works well for networks with ReLU activations.
-    W = np.random.randn(n, n-1) * np.sqrt(2 / (n-1)) 
+    W[l] = np.random.randn(shapeOfW) * np.sqrt(2 / (n-1)) 
     # Xavier initialization is multiply np.sqrt(1 / (n-1))
   ```
 
 ## Normalization
+
+![](images/normalization.png)
+![](images/why-normalization.png)
 
 `softmax` function is a normalization function.
    ```python
@@ -212,11 +226,13 @@ The loss is used to evaluate the performance of your model. The bigger your loss
 
   ```
 ## Regularization  
-  * To reduce/prevent over-fitting.
+  * To reduce/prevent over-fitting / variance issue.
   * Drive weights to lower values.
   * Hurts training set performance but gives better test accuracy.
 
   1. L2-regularization 
+    - Could be used at the beginning.
+    - An alternate to early stopping.
     - relies on the assumption that *a model with smaller weights is simpler than model with large weights*
     - forward (cost) and backward (W update) propagations both need change
     - weight decay
@@ -240,6 +256,7 @@ The loss is used to evaluate the performance of your model. The bigger your loss
   ```
 
   2. Drop-out
+    - Should be used when the NN has overfitting issue.
     - With dropout, the neurons become less sensitive to the activation. This would prevent overfitting (high variance).
     - Intuition: cannot rely on any one feature, so have to spread out weights (shrink weights).
     - Dropout should be used ONLY in training, not testing.
