@@ -175,7 +175,7 @@ The loss is used to evaluate the performance of your model. The bigger your loss
      **NOTE:** do not initialize parameters too large!
   ```python
     # *He initialization* works well for networks with ReLU activations.
-    W[l] = np.random.randn(shapeOfW) * np.sqrt(2 / (n-1)) 
+    W[l] = np.random.rand(layers_dims[l], layer_dims[l-1]) * np.sqrt(2 / layer_dims[l-1]) 
     # Xavier initialization is multiply np.sqrt(1 / (n-1))
   ```
 
