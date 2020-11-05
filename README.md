@@ -2,6 +2,7 @@
 
 <!-- MarkdownTOC autolink="true" -->
 
+- [Binary Classification / Logistic Regression](#binary-classification--logistic-regression)
 - [Steps for developing a neural network](#steps-for-developing-a-neural-network)
 - [Bias & Variance](#bias--variance)
 - [Terminologies](#terminologies)
@@ -9,7 +10,7 @@
 - [Derivatives](#derivatives)
 - [Backward Propagation](#backward-propagation)
 - [Loss / Cost Function](#loss--cost-function)
-  - [Loss](#loss)
+	- [Loss](#loss)
 - [Parameters Initialization](#parameters-initialization)
 - [Normalization](#normalization)
 - [Cost \(gradients\)](#cost-gradients)
@@ -40,6 +41,17 @@
   3. Structuring Machine Learning Projects
   4. Convolutional Neural Networks
   5. Sequence Models
+
+## Binary Classification / Logistic Regression
+
+Lost is smaller is better.
+
+```
+Lost(yhat, y) = - (y * log(yhat) + (1-y) * log(1-yhat))
+```
+    if y = 1, `Lost = -log(yhat)`, we want Lost to be small, then `log(yhat)` be large, then `yhat` be large
+
+
 
 
 ## Steps for developing a neural network
